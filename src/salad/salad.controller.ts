@@ -40,8 +40,7 @@ export class SaladController {
     )
     toppings: ToppingDTO[],
   ) {
-    console.log(saladId);
-    console.log(toppings);
+    return this.saladService.addToppings(saladId, toppings);
   }
 
   @Post(':id/dressing')

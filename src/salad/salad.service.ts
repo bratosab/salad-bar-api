@@ -14,7 +14,7 @@ export class SaladService {
     return this.dataClient.send<BaseSaladDto>('get_salads', {});
   }
 
-  addToppings(saladId: string, toppings: ToppingDTO[]) {
+  addToppings(saladId: number, toppings: ToppingDTO[]) {
     return this.dataClient.send<BaseSaladDto>('add_toppings_salad', {
       saladId,
       toppings,
