@@ -5,6 +5,8 @@ import {
   Param,
   ParseArrayPipe,
   Post,
+  Req,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -12,8 +14,10 @@ import { CreateSaladDto } from './dto/salad.dto';
 import { DressingDTO } from './dto/dressing.dto';
 import { ToppingDTO } from './dto/topping.dto';
 import { SaladService } from './salad.service';
+import { LoggingInterceptor } from '../core/logging.interceptor';
 
 @Controller()
+@UseInterceptors(LoggingInterceptor)
 export class SaladController {
   constructor(private readonly saladService: SaladService) {}
 
