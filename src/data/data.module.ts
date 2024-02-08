@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import {
+  ClientProvider,
+  ClientsModule,
+  Transport,
+} from '@nestjs/microservices';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -8,12 +12,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       {
         imports: [ConfigModule],
         name: 'DATA',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.TCP,
-          options: {
-            port: config.get('DATA_MS_PORT'),
-          },
-        }),
+        useFactory: (config: ConfigService) => {
+          console.log(config.get('DATA_MS_PORT'));
+          const params: ClientProvider = {
+            transport: Transport.TCP,
+            options: {
+              port: config.get('DATA_MS_PORT'),
+            },
+          };
+          return params;
+        },
         inject: [ConfigService],
       },
     ]),

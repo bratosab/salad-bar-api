@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   ParseArrayPipe,
   Post,
@@ -10,9 +11,17 @@ import {
 import { CreateSaladDto } from './dto/salad.dto';
 import { DressingDTO } from './dto/dressing.dto';
 import { ToppingDTO } from './dto/topping.dto';
+import { SaladService } from './salad.service';
 
 @Controller()
 export class SaladController {
+  constructor(private readonly saladService: SaladService) {}
+
+  @Get()
+  getAll() {
+    return this.saladService.getAll();
+  }
+
   @Post()
   @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
   create(@Body() createSaladDto: CreateSaladDto) {
